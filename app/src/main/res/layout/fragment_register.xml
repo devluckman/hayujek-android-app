@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.register.RegisterFragment">
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_rounded_field_white_8"
+        android:fontFamily="@font/ubuntu"
+        android:hint="username"
+        android:inputType="text"
+        android:maxLength="100"
+        android:maxLines="1"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_rounded_field_white_8"
+        android:fontFamily="@font/ubuntu"
+        android:hint="password"
+        android:inputType="text"
+        android:maxLength="100"
+        android:maxLines="1"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/edt_username"
+        app:layout_constraintStart_toStartOf="@id/edt_username"
+        app:layout_constraintTop_toBottomOf="@id/edt_username" />
+
+    <TextView
+        android:id="@+id/btn_submit"
+        android:layout_width="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded_base_purple"
+        android:fontFamily="@font/ubuntu"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="1sp"
+        android:paddingVertical="16dp"
+        android:text="Register"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/edt_password"
+        app:layout_constraintStart_toStartOf="@id/edt_password"
+        app:layout_constraintTop_toBottomOf="@id/edt_password" />
+
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
