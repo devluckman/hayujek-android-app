@@ -1,14 +1,6 @@
 package com.man.hayujek.presentation
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.man.hayujek.R
-import org.koin.androidx.fragment.android.setupKoinFragmentFactory
-import org.koin.androidx.scope.ScopeActivity
+import com.man.hayujek.base.BaseActivity
+import com.man.hayujek.databinding.ActivityMainBinding
 
-class MainActivity : ScopeActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate)

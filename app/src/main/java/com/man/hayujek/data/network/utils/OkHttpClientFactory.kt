@@ -4,6 +4,7 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
+import com.man.hayujek.BuildConfig
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,11 +26,13 @@ object OkHttpClientFactory {
             .connectTimeout(TIMEOUT.toLong(), TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        builder.addInterceptor(interceptor).build()
+        if (BuildConfig.DEBUG) {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            builder.addInterceptor(interceptor).build()
 
-        builder.addInterceptor(createChuck(context))
+            builder.addInterceptor(createChuck(context))
+        }
 
         val dispatcher = Dispatcher()
         dispatcher.maxRequests = DEFAULT_MAX_REQUEST
@@ -38,14 +41,12 @@ object OkHttpClientFactory {
         return builder.build()
     }
 
-    fun createChuck(context : Context) : ChuckerInterceptor{
+    private fun createChuck(context: Context): ChuckerInterceptor {
         val checkerCollector = ChuckerCollector(
             context = context,
             showNotification = true,
             retentionPeriod = RetentionManager.Period.ONE_HOUR
         )
-
-        // Create the Interceptor
         return ChuckerInterceptor.Builder(context)
             .collector(checkerCollector)
             .maxContentLength(250_000L)

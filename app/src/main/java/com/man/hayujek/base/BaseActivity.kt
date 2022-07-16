@@ -2,8 +2,10 @@ package com.man.hayujek.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import org.koin.androidx.scope.ScopeActivity
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -11,23 +13,17 @@ import java.lang.reflect.ParameterizedType
  * Created by Lukmanul Hakim on  13/07/22
  * devs.lukman@gmail.com
  */
-@Suppress("UNCHECKED_CAST")
-abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<T : ViewBinding>(
+    private val inflate: (LayoutInflater) -> T
+) : ScopeActivity() {
 
-    private var _binding: ViewBinding? = null
-    protected val binding: T
-        get() = _binding as T
+    private lateinit var _binding: T
+    val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bindingClass = (this::class.java.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
-        val inflateMethod = bindingClass.getMethod("inflate", LayoutInflater::class.java)
-        val invokeLayout = inflateMethod.invoke(null, layoutInflater) as T
-        setContentView(invokeLayout.root)
-
-        invokeLayout.also {
-            _binding = it
-        }
+        _binding = inflate(layoutInflater)
+        setContentView(_binding.root)
     }
 
     override fun onStart() {
@@ -36,9 +32,4 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     }
 
     open fun T.initialBinding() {}
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 }
