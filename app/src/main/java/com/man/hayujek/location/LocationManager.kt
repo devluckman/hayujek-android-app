@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
  * Created by Lukmanul Hakim on  31/07/22
  * devs.lukman@gmail.com
  */
+@SuppressLint("MissingPermission")
 class LocationManager(private val context: Context) {
 
     private val locationRequest: LocationRequest by lazy {
@@ -31,7 +32,6 @@ class LocationManager(private val context: Context) {
         LocationServices.getFusedLocationProviderClient(context)
     }
 
-    @SuppressLint("MissingPermission")
     suspend fun getLocation(): Flow<Location> {
         val callbackFlow = callbackFlow<Location> {
             val locationCallback = object : LocationCallback() {
@@ -56,5 +56,16 @@ class LocationManager(private val context: Context) {
         return callbackFlow.distinctUntilChanged { old, new ->
             old.distanceTo(new) < distanceValidator
         }
+    }
+
+    fun getCurrentLocation(location: (Location) -> Unit) {
+        val request = LastLocationRequest.Builder().build()
+        fusedProviderClient.getLastLocation(request)
+            .addOnFailureListener {
+                it.printStackTrace()
+            }
+            .addOnSuccessListener {
+                location(it)
+            }
     }
 }

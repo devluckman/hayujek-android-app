@@ -61,7 +61,6 @@ object MarkerManager {
     fun animateMarkerNew(startPosition: LatLng, destination: LatLng, marker: Marker?, googleMap: GoogleMap) {
         if (marker != null) {
             val endPosition = LatLng(destination.latitude, destination.longitude)
-            val startRotation = marker.rotation
             val latLngInterpolator: LatLngInterpolatorNew = LatLngInterpolatorNew.LinearFixed()
             val valueAnimator = ValueAnimator.ofFloat(0f, 1f)
             valueAnimator.duration = 2000 // duration 3 second
@@ -107,7 +106,7 @@ object MarkerManager {
     private interface LatLngInterpolatorNew {
         fun interpolate(fraction: Float, a: LatLng?, b: LatLng?): LatLng?
         class LinearFixed : LatLngInterpolatorNew {
-            override fun interpolate(fraction: Float, a: LatLng?, b: LatLng?): LatLng? {
+            override fun interpolate(fraction: Float, a: LatLng?, b: LatLng?): LatLng {
                 if (a != null && b != null) {
                     val lat = (b.latitude - a.latitude) * fraction + a.latitude
                     var lngDelta = b.longitude - a.longitude
