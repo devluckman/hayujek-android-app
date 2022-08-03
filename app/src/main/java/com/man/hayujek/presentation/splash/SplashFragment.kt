@@ -21,7 +21,7 @@ class SplashFragment : BaseFragment<SplashVM, FragmentSplashBinding>(FragmentSpl
                 if (it.isNotEmpty()) {
                     navigateTo(this@SplashFragment, R.id.action_navigationSplash_to_navigationHome)
                 } else {
-                    navigateTo(this@SplashFragment, R.id.action_navigationSplash_to_navigationLogin)
+                    navigateTo(this@SplashFragment, R.id.action_navigationSplash_to_navigationMaps)
                 }
             }
         }

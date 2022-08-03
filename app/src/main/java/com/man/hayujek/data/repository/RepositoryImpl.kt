@@ -1,8 +1,11 @@
 package com.man.hayujek.data.repository
 
+import com.man.hayujek.data.dummy.Sources
+import com.man.hayujek.data.mapper.Mapper
 import com.man.hayujek.data.preferences.CacheStorage
 import com.man.hayujek.data.source.NetworkDataSource
 import com.man.hayujek.domain.event.FlowState
+import com.man.hayujek.domain.model.RouteModel
 import com.man.hayujek.domain.model.UserModel
 import com.man.hayujek.domain.request.RequestLogin
 import com.man.hayujek.domain.request.RequestRegister
@@ -51,6 +54,17 @@ class RepositoryImpl(
     override suspend fun getProfileDriver(): FlowState<UserModel> {
         val token: String = cacheStorage.getApiToken()
         return network.getProfileDriver(token = token)
+    }
+
+
+    // endregion
+
+    // region Maps
+
+    override suspend fun getRoute(): RouteModel {
+        val data = Sources.getResultRoutes()
+
+        return Mapper.mapRoute(data)
     }
 
     // endregion

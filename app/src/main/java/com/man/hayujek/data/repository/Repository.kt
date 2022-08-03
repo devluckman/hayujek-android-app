@@ -1,6 +1,7 @@
 package com.man.hayujek.data.repository
 
 import com.man.hayujek.domain.event.FlowState
+import com.man.hayujek.domain.model.RouteModel
 import com.man.hayujek.domain.model.UserModel
 import com.man.hayujek.domain.request.RequestLogin
 import com.man.hayujek.domain.request.RequestRegister
@@ -24,5 +25,7 @@ interface Repository {
     suspend fun registerDriver(request: RequestRegister): FlowState<Boolean>
 
     suspend fun getProfileDriver(): FlowState<UserModel>
+
+    suspend fun getRoute() : RouteModel
 
 }

@@ -16,6 +16,7 @@ android {
         buildConfigField "String", "BASE_URL", "\"https://hayujek-api.herokuapp.com\"";
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue("string", "GEO_API_KEY", geo_api_key)
     }
 
     buildTypes {
@@ -62,8 +63,8 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.google.code.gson:gson:2.9.0'
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
-
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     //noinspection GradleDependency
@@ -72,4 +73,9 @@ dependencies {
     implementation 'io.insert-koin:koin-android:3.2.0'
     implementation 'io.insert-koin:koin-annotations:1.0.1'
     ksp 'io.insert-koin:koin-ksp-compiler:1.0.1'
+
+    implementation 'com.google.maps.android:maps-utils-ktx:3.2.1'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'pub.devrel:easypermissions:3.0.0'
+
 }

@@ -3,6 +3,9 @@ package com.man.hayujek.data.mapper
 import com.man.hayujek.data.response.LoginResponse
 import com.man.hayujek.data.response.ProfileResponse
 import com.man.hayujek.data.response.RegisterResponse
+import com.man.hayujek.data.response.RoutesResponse
+import com.man.hayujek.data.response.RoutesResponse.Companion.toDomain
+import com.man.hayujek.domain.model.RouteModel
 import com.man.hayujek.domain.model.UserModel
 
 /**
@@ -32,6 +35,13 @@ object Mapper {
             it == true
         }
         return response?.data?.let(mapper) ?: false
+    }
+
+    fun mapRoute(response : RoutesResponse?) : RouteModel {
+        val mapper : (RoutesResponse.Data?) -> RouteModel = {
+            RouteModel(data = it.toDomain())
+        }
+        return response?.data?.let(mapper) ?: RouteModel(data = listOf())
     }
 
 }
